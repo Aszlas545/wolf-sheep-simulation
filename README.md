@@ -1,5 +1,5 @@
 # Wolf and sheep simulation
-## This program performs a simple simulation of wolf chsing sheep around the map not limited by boundries.
+## This program performs a simple simulation of wolf chasing sheep around the map not limited by boundries.
 The simulation consists of rounds divided into two phases:
 - In the first phase sheep move in one of four directions (up, down, left right) chosen randomly
 - In the second phase wolf choses his target by searching for the closes sheep. If the chosen target is within the wolf's range the sheep is eaten otherwise the wolf closes the distance between him and the target by set distance.
