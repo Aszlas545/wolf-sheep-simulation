@@ -85,3 +85,4 @@ class Simulation:
             logging.basicConfig(filename="logs/log.log", level=logging.DEBUG)
             logging.debug("test2")
             logging.info("test")
+            logging.critical("error")
