@@ -3,7 +3,6 @@ from pathlib import Path
 import argparse
 from argparse import RawTextHelpFormatter
 import configparser
-import logging
 import logger
 
 # configuration of argument parser
@@ -48,31 +47,20 @@ wolf_move_dst = 1.0
 sheep_move_dst = 0.5
 spawn_border = 10
 
-if args.logs > 0:
-    logger.overwrite_log()
-    match args.log:
-        case 10:
-            log_level = logging.DEBUG
-        case 20:
-            log_level = logging.INFO
-        case 30:
-            log_level = logging.WARNING
-        case 40:
-            log_level = logging.ERROR
-        case 50:
-            log_level = logging.CRITICAL
-else:
-    log_level = None
+if not args.log == 0:
+    logger.overwrite_log(args.log)
 
 # checking --config argument and validating arguments passed in given file
 if args.config is not None:
     # checking if the give path exists, leads to a file and if it does it is in ini format
     if not Path.exists(Path(args.config)):
-
+        logger.log_to_log("Ending program: %s does not exist" % args.config, 40)
         arg_parser.error("The file %s does not exist!" % args.config)
     if not Path.is_file(Path(args.config)):
+        logger.log_to_log("Ending program: %s Did not lead to a file" % args.config, 40)
         arg_parser.error("Given string %s does not lead to a file!" % args.config)
     if not args.config.endswith('.ini'):
+        logger.log_to_log("Ending program: %s is not an ini file" % args.config, 40)
         arg_parser.error("The file %s is not an ini file!" % args.config)
 
     # parsing configuration of file given in --config option
@@ -120,6 +108,6 @@ if args.rounds < 1:
 if args.sheep < 1:
     arg_parser.error("Amount of sheep must be a positive integer")
 
-simulation = simulation.Simulation(wolf_move_dst, spawn_border, sheep_move_dst, args.sheep, args.wait, log_level)
+simulation = simulation.Simulation(wolf_move_dst, spawn_border, sheep_move_dst, args.sheep, args.wait, args.log)
 for i in range(args.rounds):
     simulation.simulate_round()
