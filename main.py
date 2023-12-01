@@ -3,6 +3,8 @@ from pathlib import Path
 import argparse
 from argparse import RawTextHelpFormatter
 import configparser
+import logging
+import logger
 
 # configuration of argument parser
 arg_parser = argparse.ArgumentParser(prog="Wolf and sheep simulation",
@@ -22,7 +24,7 @@ arg_parser.add_argument('-l', '--log',
                         help="takes int value standing for that level of logging",
                         metavar='LEVEL',
                         type=int,
-                        choices=[10, 20],
+                        choices=[10, 20, 30, 40, 50],
                         default=0)
 arg_parser.add_argument('-r', '--rounds',
                         metavar='NUM',
@@ -46,10 +48,27 @@ wolf_move_dst = 1.0
 sheep_move_dst = 0.5
 spawn_border = 10
 
+if args.logs > 0:
+    logger.overwrite_log()
+    match args.log:
+        case 10:
+            log_level = logging.DEBUG
+        case 20:
+            log_level = logging.INFO
+        case 30:
+            log_level = logging.WARNING
+        case 40:
+            log_level = logging.ERROR
+        case 50:
+            log_level = logging.CRITICAL
+else:
+    log_level = None
+
 # checking --config argument and validating arguments passed in given file
 if args.config is not None:
     # checking if the give path exists, leads to a file and if it does it is in ini format
     if not Path.exists(Path(args.config)):
+
         arg_parser.error("The file %s does not exist!" % args.config)
     if not Path.is_file(Path(args.config)):
         arg_parser.error("Given string %s does not lead to a file!" % args.config)
@@ -101,8 +120,6 @@ if args.rounds < 1:
 if args.sheep < 1:
     arg_parser.error("Amount of sheep must be a positive integer")
 
-print(wolf_move_dst, sheep_move_dst, spawn_border)
-
-simulation = simulation.Simulation(wolf_move_dst, spawn_border, sheep_move_dst, args.sheep, args.wait)
+simulation = simulation.Simulation(wolf_move_dst, spawn_border, sheep_move_dst, args.sheep, args.wait, log_level)
 for i in range(args.rounds):
     simulation.simulate_round()
