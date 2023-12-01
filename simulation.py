@@ -7,13 +7,14 @@ import logging
 
 class Simulation:
 
-    def __init__(self):
+    def __init__(self, wolf_speed, sheep_spawn_limit, sheep_speed, sheep_amount, do_wait):
         self.noRound = 0
         self.sheep_alive = []
-        self.wolf = wolf.Wolf()
+        self.wolf = wolf.Wolf(wolf_speed)
         self.json_data = None
-        for i in range(50):
-            self.sheep_alive.append(sheep.Sheep())
+        self.do_wait = do_wait
+        for i in range(sheep_amount):
+            self.sheep_alive.append(sheep.Sheep(sheep_spawn_limit, sheep_speed))
         self.sheep_status = self.sheep_alive.copy()
         with open("logs/alive.csv", "w", newline=""):
             pass
@@ -23,7 +24,6 @@ class Simulation:
             self.json_data = json.load(jsonfile)
         with open("logs/log.log", "w", newline=""):
             pass
-
 
     def simulate_round(self):
         for animal in self.sheep_alive:
@@ -44,24 +44,8 @@ class Simulation:
         self.log_to_txt()
         if len(self.sheep_alive) == 0:
             quit("All sheep were slaughtered! " + str(self.noRound) + " rounds were performed")
-
-    def get_sheep_x(self):
-        collection = []
-        for s in self.sheep_alive:
-            collection.append(s.position[0])
-        return collection
-
-    def get_sheep_y(self):
-        collection = []
-        for s in self.sheep_alive:
-            collection.append(s.position[1])
-        return collection
-
-    def get_sheep_coords(self):
-        collection = []
-        for s in self.sheep_alive:
-            collection.append(s.position)
-        return collection
+        if self.do_wait:
+            input("waiting for input")
 
     def log_to_csv(self):
         with open("logs/alive.csv", "a", newline="") as csvfile:

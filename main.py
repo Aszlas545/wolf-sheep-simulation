@@ -103,6 +103,6 @@ if args.sheep < 1:
 
 print(wolf_move_dst, sheep_move_dst, spawn_border)
 
-simulation = simulation.Simulation()
-for i in range(50):
+simulation = simulation.Simulation(wolf_move_dst, spawn_border, sheep_move_dst, args.sheep, args.wait)
+for i in range(args.rounds):
     simulation.simulate_round()
