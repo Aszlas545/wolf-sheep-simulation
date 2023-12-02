@@ -122,6 +122,7 @@ WARNING (30) - indicates that something unexpected happened, yet the program is 
 ERROR (40) - indicates that a problem occurred and the program may not be able to perform some of its functions;
 CRITICAL (50) - indicates that a serious problem occurred and the program may not be able to continue running.
 Events whose severity level is equal to or higher than the specified log level should be logged according to the following specification.
+
 The DEBUG (10) level requires the following events to be logged with the corresponding information:
 when values from a configuration file were loaded - a statement of this fact along with the actual loaded values;
 when an initial position of a sheep was determined - the sequence number of the sheep and the initial position of the sheep;
@@ -131,6 +132,7 @@ when the wolf determined which sheep is closest to it - the sequence number of t
 when the wolf moved - the new position of the wolf;
 when information were saved to a pos.json file - a statement of this fact;
 when information were saved to an alive.csv file - a statement of this fact.
+
 The INFO (20) level requires the following events to be logged with the corresponding information:
 when initial positions of all sheep were determined - a statement of this fact;
 when a new round was started - a statement of this fact along with the round number;
