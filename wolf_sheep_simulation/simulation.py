@@ -34,7 +34,15 @@ class Simulation:
                               % (self.sheep_status.index(animal), animal.position), 10)
         logger.log_to_log("all sheep moved", 20)
 
-        wolf_target = self.wolf.move(self)
+        #wersja bardziej logiczna
+        wolf_target, distance = self.wolf.estimate_target(self.sheep_alive)
+        logger.log_to_log("wolf determined that sheep %i is the closest, distance is: %f"
+                          % (self.sheep_status.index(wolf_target), distance), 10)
+        self.wolf.move2()
+        logger.log_to_log("wolf made its move to: %s" % self.wolf.position, 10)
+
+        #wersja mniej logiczna
+        #wolf_target = self.wolf.move(self.sheep_alive)
         if self.wolf.position == wolf_target.position:
             self.sheep_alive.remove(wolf_target)
             wolf_target.position = [None, None]
