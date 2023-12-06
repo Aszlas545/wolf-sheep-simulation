@@ -32,18 +32,3 @@ def log_to_json(list_of_dicts):
     with open("pos.json", "w", newline="") as jsonfile:
         jsonfile.seek(0)
         json.dump(list_of_dicts, jsonfile, indent=4)
-
-
-def log_to_log(message, intended_log_level):
-    with open("chase.log", "a", newline=""):
-        match intended_log_level:
-            case logging.DEBUG:
-                logging.debug(message)
-            case logging.INFO:
-                logging.info(message)
-            case logging.WARNING:
-                logging.warning(message)
-            case logging.ERROR:
-                logging.error(message)
-            case logging.CRITICAL:
-                logging.critical(message)
