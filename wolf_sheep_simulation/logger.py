@@ -19,7 +19,7 @@ def overwrite_log(log_level):
     with open("chase.log", "w", newline=""):
         logging.basicConfig(filename="chase.log",
                             level=log_level,
-                            format="%(levelname)-8s :: %(asctime)s :: ""%(message)s")
+                            format="%(levelname)-8s :: %(filename)-13s :: %(asctime)s :: ""%(message)s")
 
 
 def log_to_csv(message):
