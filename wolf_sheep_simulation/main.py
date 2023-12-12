@@ -73,12 +73,13 @@ if args.config is not None:
             wolf_move_dst = conf_parser['Wolf'].getfloat('MoveDist')
             logging.debug("wolf moving distance loaded from %s: %f" % (args.config, wolf_move_dst))
         except Exception:
-            logging.critical("ending program: %s was not a float" % wolf_move_dst)
+            logging.critical("ending program: [Wolf].MoveDist was not a float")
             raise TypeError("value at [Wolf].MoveDist was not a float")
         if not wolf_move_dst > 0:
             logging.critical("ending program: %s was not positive" % wolf_move_dst)
             raise ValueError("float at [Wolf].MoveDist must be positive")
     else:
+        logging.critical("ini file lacked option: [Wolf].MoveDist")
         raise configparser.NoOptionError('MoveDist', 'Wolf')
 
     # checking if sheep initial spawn position limit exists in given file, and if it is a positive float
@@ -88,12 +89,13 @@ if args.config is not None:
             spawn_border = conf_parser['Sheep'].getfloat('InitPosLimit')
             logging.debug("initial position limit loaded from %s: %s" % (args.config, spawn_border))
         except Exception:
-            logging.critical("ending program: %s was not a float" % spawn_border)
+            logging.critical("ending program: [Sheep].InitPosLimit was not a float")
             raise TypeError("value at [Sheep].InitPosLimit was not a float")
         if not spawn_border > 0:
             logging.critical("ending program: %s was not positive" % spawn_border)
             raise ValueError("float at [Sheep].InitPosLimit must be positive")
     else:
+        logging.critical("ini file lacked option: [Sheep].InitPosLimit")
         raise configparser.NoOptionError('InitPosLimit', 'Sheep')
 
     # checking if sheep moving distance exists in given file, and if it is a positive float
@@ -102,12 +104,13 @@ if args.config is not None:
             sheep_move_dst = conf_parser['Sheep'].getfloat('MoveDist')
             logging.debug("sheep moving distance loaded from %s: %s" % (args.config, sheep_move_dst))
         except Exception:
-            logging.critical("ending program: %s was not a float" % sheep_move_dst)
+            logging.critical("ending program: [Sheep].MoveDist was not a float")
             raise TypeError("value at [Sheep].MoveDist was not a float")
         if not sheep_move_dst > 0:
             logging.critical("ending program: %s was not positive" % sheep_move_dst)
             raise ValueError("float at [Sheep].MoveDist must be positive")
     else:
+        logging.critical("ini file lacked option: [Sheep].MoveDist")
         raise configparser.NoOptionError('MoveDist', 'Sheep')
 
 # --rounds argument check

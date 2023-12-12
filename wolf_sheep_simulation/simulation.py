@@ -16,7 +16,7 @@ class Simulation:
 
         for i in range(sheep_amount):
             self.sheep_status.append(sheep.Sheep(sheep_spawn_limit, sheep_speed, i))
-        logging.info("position of all sheep was established")
+        logging.info("position of all sheep was determined")
 
         logger.overwrite_csv()
 

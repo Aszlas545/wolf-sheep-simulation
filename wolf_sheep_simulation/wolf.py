@@ -20,9 +20,9 @@ class Wolf:
             if self.distance > currentDistance:
                 self.distance = currentDistance
                 self.target = target
-        logging.info("wolf is chasing sheep %i" % self.target.number)
         logging.debug("wolf determined that sheep %i is the closest, distance is equal to: %f"
                       % (self.target.number, self.distance))
+        logging.info("wolf is chasing sheep %i" % self.target.number)
         if self.distance < self.speed:
             self.position = self.target.position
         else:
