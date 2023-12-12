@@ -14,13 +14,14 @@ class Wolf:
         self.distance = float(math.inf)
 
         for target in possible_targets:
-            if target.position == [None, None]:
+            if not target:
                 continue
             currentDistance = math.dist(target.position, self.position)
             if self.distance > currentDistance:
                 self.distance = currentDistance
                 self.target = target
-        logging.debug("wolf determined that sheep %i is the closest, distance is: %f"
+        logging.info("wolf is chasing sheep %i" % self.target.number)
+        logging.debug("wolf determined that sheep %i is the closest, distance is equal to: %f"
                       % (self.target.number, self.distance))
         if self.distance < self.speed:
             self.position = self.target.position
@@ -30,4 +31,5 @@ class Wolf:
             self.position[1] = (self.position[1] - self.speed *
                                 (self.position[1] - self.target.position[1]) / self.distance)
         logging.debug("wolf made its move to: %s" % self.position)
+        logging.info("wolf moved")
         return self.target

@@ -3,6 +3,7 @@ import sheep
 import wolf
 import logger
 
+
 class Simulation:
 
     def __init__(self, wolf_speed, sheep_spawn_limit, sheep_speed, sheep_amount, do_wait):
@@ -17,17 +18,16 @@ class Simulation:
             self.sheep_status.append(sheep.Sheep(sheep_spawn_limit, sheep_speed, i))
         logging.info("position of all sheep was established")
 
-
         logger.overwrite_csv()
 
         self.json_data = logger.overwrite_json()
 
     def simulate_round(self):
-        logging.info("round %i was started" % self.no_round)
+        logging.info("round %i started" % self.no_round)
         for animal in self.sheep_status:
-            if not animal.position == [None, None]:
+            if animal:
                 animal.move()
-        logging.info("all sheep moved")
+        logging.info("all alive sheep moved")
 
         wolf_target = self.wolf.move(self.sheep_status)
 
@@ -56,8 +56,7 @@ class Simulation:
         logger.log_to_json(self.json_data)
         logging.debug("data was logged to json file")
 
-        logging.info("the round %i is about to end, the number of sheep alive: %i"
-                          % (self.no_round, self.sheep_alive))
+        logging.info("the round %i is about to end, the number of sheep alive: %i" % (self.no_round, self.sheep_alive))
         if self.do_wait:
             input("waiting for input")
 

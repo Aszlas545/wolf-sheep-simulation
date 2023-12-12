@@ -55,13 +55,13 @@ if args.config is not None:
     # checking if the given path exists, leads to a file and if it does it is in ini format
     if not Path.exists(Path(args.config)):
         logging.critical("ending program: %s does not exist" % args.config)
-        arg_parser.error("The file %s does not exist!" % args.config)
+        arg_parser.error("the file %s does not exist!" % args.config)
     if not Path.is_file(Path(args.config)):
         logging.critical("ending program: %s Did not lead to a file" % args.config)
-        arg_parser.error("Given string %s does not lead to a file!" % args.config)
+        arg_parser.error("given string %s does not lead to a file!" % args.config)
     if not args.config.endswith('.ini'):
         logging.critical("ending program: %s is not an ini file" % args.config)
-        arg_parser.error("The file %s is not an ini file!" % args.config)
+        arg_parser.error("the file %s is not an ini file!" % args.config)
 
     # parsing configuration of file given in --config option
     conf_parser = configparser.ConfigParser()
@@ -72,7 +72,7 @@ if args.config is not None:
         try:
             wolf_move_dst = conf_parser['Wolf'].getfloat('MoveDist')
             logging.debug("wolf moving distance loaded from %s: %f" % (args.config, wolf_move_dst))
-        except:
+        except Exception:
             logging.critical("ending program: %s was not a float" % wolf_move_dst)
             raise TypeError("value at [Wolf].MoveDist was not a float")
         if not wolf_move_dst > 0:
@@ -87,7 +87,7 @@ if args.config is not None:
         try:
             spawn_border = conf_parser['Sheep'].getfloat('InitPosLimit')
             logging.debug("initial position limit loaded from %s: %s" % (args.config, spawn_border))
-        except:
+        except Exception:
             logging.critical("ending program: %s was not a float" % spawn_border)
             raise TypeError("value at [Sheep].InitPosLimit was not a float")
         if not spawn_border > 0:
@@ -101,7 +101,7 @@ if args.config is not None:
         try:
             sheep_move_dst = conf_parser['Sheep'].getfloat('MoveDist')
             logging.debug("sheep moving distance loaded from %s: %s" % (args.config, sheep_move_dst))
-        except:
+        except Exception:
             logging.critical("ending program: %s was not a float" % sheep_move_dst)
             raise TypeError("value at [Sheep].MoveDist was not a float")
         if not sheep_move_dst > 0:
@@ -113,11 +113,11 @@ if args.config is not None:
 # --rounds argument check
 if args.rounds < 1:
     logging.critical("ending program: %s was lower than one" % args.rounds)
-    arg_parser.error("Amount of rounds must be a positive integer")
+    arg_parser.error("amount of rounds must be a positive integer")
 # --sheep argument check
 if args.sheep < 1:
     logging.critical("ending program: %s was lower than one" % args.sheep)
-    arg_parser.error("Amount of sheep must be a positive integer")
+    arg_parser.error("amount of sheep must be a positive integer")
 
 simulation = simulation.Simulation(wolf_move_dst, spawn_border, sheep_move_dst, args.sheep, args.wait)
 

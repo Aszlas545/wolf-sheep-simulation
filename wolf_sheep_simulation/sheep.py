@@ -12,6 +12,11 @@ class Sheep:
                       % (self.number, self.position))
         self.direction = None
 
+    def __bool__(self):
+        if self.position == [None, None]:
+            return False
+        return True
+
     def move(self):
         x = random.randint(1, 4)
         match x:
@@ -34,4 +39,3 @@ class Sheep:
             case "down":
                 self.position[1] -= self.speed
         logging.debug("sheep %i made its move to: %s" % (self.number, self.position))
-
